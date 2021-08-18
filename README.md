@@ -2,10 +2,10 @@
 A simple todo api problem to be used as a technical test.
 
 ## The problem
-Build a REST API backend service that exposes a few services that can be used as a TODO application. The minimum application should expose the services specified in the [specification.yaml](specification.yaml) and function as detailed below. The application does not need a database or persistent storage, and can use in-memory storage for the duration of its runtime.
+Build a REST API backend service that exposes a few services that can be used as a TODO application. The minimum application should expose the services specified in the [specification.yml](specification.yml) and function as detailed below. The application does not need a database or persistent storage, and can use in-memory storage for the duration of its runtime.
 
 ## How to get started
-* Open the [specification.yaml](specification.yaml) file and copy the contents into [editor.swagger.io](https://editor.swagger.io/) to view it easily.
+* Open the [specification.yml](specification.yml) file and copy the contents into [editor.swagger.io](https://editor.swagger.io/) to view it easily.
 * Make sure each api route implements the functional requirements mentioned below.
 
 ## Functional requirements
