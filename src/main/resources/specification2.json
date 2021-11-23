@@ -1,0 +1,201 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Todo API",
+    "version": "1.0.0",
+    "description": "An API specification for a simple Todo api.\n"
+  },
+  "servers": [
+    {
+      "url": "https://localhost:8080"
+    }
+  ],
+  "tags": [
+    {
+      "name": "todos"
+    }
+  ],
+  "paths": {
+    "/todos": {
+      "get": {
+        "summary": "Returns a list of all todos",
+        "description": "Returns all todos currently stored with the service.\n",
+        "tags": [
+          "todos"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Todos"
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/GeneralError"
+          }
+        }
+      },
+      "post": {
+        "summary": "Add a new todo",
+        "description": "Creates a new todo based on the given structure with a unique generated id.\n",
+        "tags": [
+          "todos"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Todo"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Todo"
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/GeneralError"
+          }
+        }
+      }
+    },
+    "/todos/{id}": {
+      "put": {
+        "summary": "Update a todo",
+        "description": "Updates the entire todo object matching the given id, with the exception of the id.\n",
+        "tags": [
+          "todos"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Todo"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Todo"
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/GeneralError"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a todo",
+        "description": "Removes the todo matching the given id.\n",
+        "tags": [
+          "todos"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "$ref": "#/components/responses/GeneralError"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "responses": {
+      "GeneralError": {
+        "description": "General Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Oops something went wrong"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "Todos": {
+        "type": "object",
+        "required": [
+          "todos"
+        ],
+        "properties": {
+          "todos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Todo"
+            }
+          }
+        }
+      },
+      "Todo": {
+        "type": "object",
+        "required": [
+          "completed",
+          "name"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "abc123"
+          },
+          "name": {
+            "type": "string",
+            "example": "Do some work"
+          },
+          "completed": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}
