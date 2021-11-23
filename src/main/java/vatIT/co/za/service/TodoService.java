@@ -6,8 +6,11 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.google.gson.Gson;
+
 import fr.xebia.extras.selma.Selma;
-import vatIT.co.za.exception.BadRequestException;
+import vatIT.co.za.exception.RequestException;
 import vatIT.co.za.mapper.SelmaMapper;
 import vatIT.co.za.model.Todo;
 import vatIT.co.za.model.Todos;
@@ -21,7 +24,7 @@ public class TodoService {
 
 	private SelmaMapper mapper = Selma.builder(SelmaMapper.class).build();
 
-	public Todo create(Todos dto) {
+	public Todo create(Todos dto) throws Exception {
 		try {
 			Todo todo = new Todo();
 			
@@ -31,10 +34,18 @@ public class TodoService {
 			
 			todo.setTodos(todoslist);
 			
-			return repo.save(todo);
+			System.out.println("data------->"+ new Gson().toJson(dto.getName()));
+			if(dto.getName().equals("I'm lazy"))
+			{
+				throw new RequestException("Oops something went wrong");
+			}else
+			{
+			
+        	return 	repo.save(todo);
+			}
 
 		} catch (Exception e) {
-			throw new BadRequestException(e.getMessage());
+			throw new Exception(e.getMessage());
 		}
 	}
 
@@ -45,31 +56,33 @@ public class TodoService {
 			if (!todo.isEmpty()) {
 				return todo;
 			} else {
-				throw new BadRequestException("user not found");
+				throw new RequestException("todo not found");
 			}
 
 		} catch (Exception e) {
-			throw new BadRequestException(e.getMessage());
+			throw new Exception(e.getMessage());
 		}
 	}
 
-	public Todos update(String id, Todos dto) {
+	public Todo update(Long id, Todos dto) throws Exception {
 		try {
-			Optional<Todos> todo = repo.findById(id);
+			
+			System.out.println("data------->"+ new Gson().toJson((dto)));
+			Optional<Todo> todo = repo.findById(id);
 			if (todo.isPresent()) {
-				Todos updateTodo = mapper.updateTodo(dto, todo.get());
-				Todos updatedTodo = repo.save(updateTodo);
+				Todo updateTodo = mapper.updateTodo(dto, todo.get());
+				System.out.println("data------->"+ new Gson().toJson((updateTodo)));
+				Todo updatedTodo = repo.save(updateTodo);
 				return updatedTodo;
 
-			} else {
-				throw new BadRequestException("todo not found");
-			}
+			} 
 		} catch (Exception e) {
-			throw new BadRequestException(e.getMessage());
+			throw new Exception(e.getMessage());
 		}
+		return null;
 	}
 
-	public boolean deleteById(Long id) {
+	public boolean deleteById(Long id) throws Exception {
 
 		try {
 			Optional<Todo> todo = repo.findById(id);
@@ -81,12 +94,11 @@ public class TodoService {
 				else
 					return true;
 
-			} else {
-				throw new BadRequestException("todo not found");
 			}
 		} catch (Exception e) {
-			throw new BadRequestException(e.getMessage());
+			throw new Exception(e.getMessage());
 		}
+		return false;
 	}
 
 }

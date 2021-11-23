@@ -8,7 +8,7 @@ import vatIT.co.za.model.Todos;
 @Mapper(withIgnoreMissing = IgnoreMissing.ALL, withIgnoreNullValue = true)
 public interface SelmaMapper {
 
-	Todos updateTodo(Todos in, Todos todos);
+	Todo updateTodo(Todos dto, Todo out);
 	
 
 }
