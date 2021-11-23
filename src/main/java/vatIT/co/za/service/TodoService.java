@@ -53,12 +53,12 @@ public class TodoService {
 		}
 	}
 
-	public Todo update(Long id, Todos dto) {
+	public Todos update(String id, Todos dto) {
 		try {
-			Optional<Todo> todo = repo.findById(id);
+			Optional<Todos> todo = repo.findById(id);
 			if (todo.isPresent()) {
-				Todo updateTodo = mapper.updateTodo(dto, todo.get());
-				Todo updatedTodo = repo.save(updateTodo);
+				Todos updateTodo = mapper.updateTodo(dto, todo.get());
+				Todos updatedTodo = repo.save(updateTodo);
 				return updatedTodo;
 
 			} else {
