@@ -1,16 +1,15 @@
 # Todo - API
 
-##### The api can create and store record  in memory db ,in this case  I use h2
-##### You can get all records that were created before stop the project
-##### Once you stop the record will  be lost
+##### The api can create and store record  in memory db 
+##### You can get all records that were created
 ##### You can update I used PUT method  sure the make I replace the  record on the db
-##### You can delete record by pass id
+##### You can delete record by passing id
 
 ## To run the project on you local machine
 ##### can use `mvn spring-boot:run` on  local machine 
 
 ## To run the project using docker image
-##### can use `mvn clean install` on  local machine  to build image then run using `docker run -it -p 8080:8080 todo/app:1.0.0`
+##### can use `mvn clean install` on  local machine  to build image then run using `docker run -it -p 8080:8080 todo/simple-todo-api-problem:1.0.0`
 ##### can also do docker images verify your image
 
 ## To access project using swagger ui
